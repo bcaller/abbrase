@@ -1,4 +1,5 @@
-Copyright (c) 2014 Ryan Hitchman
+Copyright (c) 2014 Ben Caller
+General idea, groupby.c, parts of Makefile and README.md Copyright (c) 2014 Ryan Hitchman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +21,7 @@ THE SOFTWARE.
 
 NGram Data (c) 2009 Google
 
-wordlist_bigrams.txt is derived from the "English One Million" dataset,
-an is licensed under the Creative Commons Attribution 3.0 Unported License.
+prefixes.txt and unigrams.json are derived from the Google Ngrams English datasets,
+and is licensed under the Creative Commons Attribution 3.0 Unported License.
 http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
 http://creativecommons.org/licenses/by/3.0/

@@ -1,32 +1,26 @@
-all: abbrase wordlist_bigrams.txt
+all: unigrams.json
 
 CFLAGS=-Wall -Wextra -Os
 
-CORPUS_EXEMPLAR=googlebooks-eng-1M-2gram-20090715-99.csv.zip
+CORPUS_EXEMPLAR=z.gz
 
 data/${CORPUS_EXEMPLAR}:
 	mkdir -p data
-	cd data; curl -O -C - \
-				'http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-1M-1gram-20090715-[0-9].csv.zip' \
-				'http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-1M-2gram-20090715-[0-99].csv.zip'
+	cd data; curl -o "./data/#1.gz" --create-dirs -C - \
+				'http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-1gram-20120701-[a-z].gz'
 
 # the ngrams data is 'mostly sorted' -- lines tend to be in order, but it occasionally restarts
 # do a groupby (join records from different years into one) to reduce the data volume, then final sort+groupby
 data/1gram.csv.gz: | data/${CORPUS_EXEMPLAR} groupby
-	zcat data/googlebooks-eng-1M-1gram-*.csv.zip | pv | ./groupby 3 | LC_ALL=c sort | ./groupby 2 | gzip -9 > $@
-
-data/2gram.csv.gz: | data/${CORPUS_EXEMPLAR} groupby
-	zcat data/googlebooks-eng-1M-2gram-*.csv.zip | pv | ./groupby 3 | LC_ALL=c sort | ./groupby 2 | gzip -9 > $@
+	zcat data/*.gz | pv | ./groupby 3 | LC_ALL=c sort | ./groupby 2 | gzip -9 > $@
 
 # extract the 100,000 most common words
 data/1gram_common.csv: data/1gram.csv.gz
 	zcat $< | sort -rgk2 | head -n 100000 > $@
 
 data/prefixes.txt: data/1gram_common.csv
-	cat $< | sed 's/^\(...\).*\t/\1\t/' | grep '^[a-z]\{3\}' | LC_ALL=c sort | ./groupby 2 | sort -rgk2 | head -n 1024 > $@
+	cat $< | sed 's/^\(...\).*\t/\1\t/' | grep '^[a-z]\{3\}' | LC_ALL=c sort | ./groupby 2 | sort -rgk2 | head -n 1024 | tr "\\n" "," | sed 's/,$//' > $@
 
-wordlist_bigrams.txt:
-	# relies on data/prefixes.txt data/2gram.csv.gz,
-	# but I don't know how to tell Make to only generate those if
-	# this target is missing
-	pypy digest.py
+unigrams.json:
+	# relies on data/prefixes.txt data/*.gz,
+	pypy unigrams.py
