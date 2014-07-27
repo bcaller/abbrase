@@ -1,73 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Abbrase.js</title>
-	<script src="abbrase.js"></script>
-	<style type="text/css">
-	body { background-color: #222; color: #ccc; }
-	pre { border: 1px solid #888; padding: 10px; overflow-x: auto; }
-	a { color: #44f; }
-	#content { width: 800px; margin: auto;}
-	#wordcount { width: 3em; }
-	</style>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <meta charset="UTF-8">
+    <title>Abbrase by bcaller</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="abbrase.js"></script>
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/PT+Serif:400,700/Source+Code+Pro:400,600">
 </head>
 <body>
-<a href="https://github.com/rmmh/abbrase"><img style="position: absolute; top: 0; left: 0; border: 0;" src="forkme.png"></a>
-
-<div id="content">
-
-<h1>Abbrase</h1>
-Password generation using abbreviated phrases<br><br>
-
-
-<input type="button" onclick="newbatch();" value="Generate"> passwords using
-<input id="wordcount" type="number" min="1" max="100" value="5" onchange="newbatch();"> word phrases.
-
-<pre id="output"></pre>
-
-
-<h2>How does this work?</h2>
-First, secure random numbers are generated.
-<pre id="explain_numbers"></pre>
-Each number selects a three letter abbreviation. The password is made by joining them together.
-<pre id="explain_password"></pre>
-Finally, a phrase is found that abbreviates to the password. Words that are normally found together are chosen to make the phrase more memorable.
-<pre id="explain_mnemonic"></pre>
-The mnemonic is much easier to remember than the input numbers, but equally secure!<br>
-<br>
-All steps are performed locally in your browser, and not sent to any other server. For more security, try the Python or C versions in the Abbrase <a href="https://github.com/rmmh/abbrase">github repository</a>.
+<a href="https://github.com/bcaller/abbrase"><img src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<h1>Abbrase <abbr title="Parts of Speech">POS</abbr></h1>
+<p>Password generation for humans using abbreviated phrases. Making secure long passwords memorable.</p>
+<div class="current">
+    <p class="phrase" title="Memorable phrase"><span>egg</span>shaped <span>sen</span>sation <span>cel</span>ebrates <span>sha</span>rp <span>avo</span>cado</p>
+    <p class="abbrase" title="Your example password - do not use"><span>egg</span><span>sen</span><span>cel</span><span>sha</span><span>avo</span></p>
+</div>
+Use <input id="wordcount" type="number" min="3" max="10" value="5"><label
+        for="wordcount"> word phrases per password.</label> <a class="btn" href="#">Generate another</a>
+<br /><br />
+<div class="history">
 
 </div>
-
-<script type="text/javascript">
-var graph = new WordGraph("wordlist_bigrams.txt");
-var generator = new PassphraseGenerator(graph);
-
-function setTextContent(id, text) {
-	document.getElementById(id).textContent = text;
-}
-
-graph.onprogress = function(perc) {
-	if (perc < 0)
-		setTextContent("output", "Error downloading: HTTP Error " + -perc);
-	else
-		setTextContent("output", "Downloading 20MB word list... " + perc + "% done");
-}
-graph.onprogress(0);
-
-function newbatch() {
-	var length = parseInt(document.getElementById("wordcount").value) || 5;
-
-	var example_password = generator.gen_password(length);
-	setTextContent("explain_numbers", pretty_arraybuffer(example_password.numbers));
-	setTextContent("explain_password", example_password.password);
-	setTextContent("explain_mnemonic", example_password.mnemonic);
-
-	setTextContent("output", generator.make_table(length, 32));
-}
-
-graph.onready = newbatch;
-graph.load();
-</script>
+<div class="explanation">
+    <h2>How does this work?</h2>
+    <p>First of all, secure random numbers are generated.</p>
+    [266, 419, 350, 885, 256]
+    <p>Each number corresponds to a three letter prefix from a list of <abbr title="2^10">1024</abbr> common English prefixes. The password is made by joining them together.</p>
+    <p class="abbrase"><span>egg</span><span>sen</span><span>cel</span><span>sha</span><span>avo</span></p>
+    <p>Finally, a phrase is found that abbreviates to the password. The words are chosen to make an English phrase of the form <span class="part-of-speech">adjective*&ndash;noun&ndash;verb&ndash;adjective*&ndash;noun</span> to make the phrase more memorable.</p>
+    <p class="phrase"><span>egg</span>shaped <span>sen</span>sation <span>cel</span>ebrates <span>sha</span>rp <span>avo</span>cado</p>
+    <p>The mnemonic is much easier to remember than the input numbers, but equally secure!</p>
+    <p>Each prefix gives the password 10 bits of entropy, so this password has 50 bits of entropy (assuming your attacker doesn't know which phrases you are likely to choose). While less than the <abbr title="log(26)/log(2)">4.7 bits</abbr> per letter (70 bits total for 15 letters) for a completely random lowercase password, this abbreviated passphrase is memorable, and if the attacker does not know you are using abbrase she has a larger search space.</p>
+    <p>All steps are performed <b>locally</b> in your browser, and <b>not sent to any other server</b>. For more security, try the Python version in the <a href="https://github.com/bcaller/abbrase">Abbrase github repository</a>.</p>
+    <p>Based on <a href="https://github.com/rmmh/abbrase">the original Abbrase by rmmh</a> which uses Markov chains calculated from bigram frequency lists rather than parts of speech to generate the phrase from the abbreviations. Also inspired of course by <a href="http://xkcd.com/936/">xkcd: Password Strength</a>.</p>
+    <p>"Isn't using a phrase more secure than abbreviating it?" &mdash; Not necessarily for phrases Abbrase generates. Displayed phrases are generated <abbr title="for some prefixes the actual word displayed is chosen pseudo-randomly from a list of 4 possible words">almost</abbr> deterministically from the password, so they have little added security. Otherwise yes, 4 words have more security than 4 abbreviated words, but they're less convenient to type, and the added characters aren't as valuable as the first few characters.</p>
+</div>
+<footer>Benjamin Caller</footer>
 </body>
 </html>

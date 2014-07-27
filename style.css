@@ -1,0 +1,122 @@
+html {
+    font-size: 20px;
+}
+body {
+    font-family: "PT Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #333333;
+    background-color: white;
+    padding: 5px 20px;
+}
+h1 {
+    font-size: 2.2em;
+    text-shadow: -1px 1px 3px #ff7c11;
+}
+.current {
+    font-size: 1.5rem;
+}
+.current span, .phrase span, b{
+    font-weight: 600;
+}
+.abbrase, .phrase {
+    font-family: "Source Code Pro", "Lucida Console", Consolas, "Courier New", Courier, monospace;
+}
+.abbrase {
+    color: #333fa5;
+}
+.abbrase span::selection{
+    background: #333fa5;
+    color: white;
+}
+.current .phrase:after, .current .abbrase:after {
+    content: ' ('attr(title)')';
+}
+.current p:after{
+    padding-left: 10px;
+    vertical-align: 0.15rem;
+    font-size: 1rem;
+    color: #999;
+}
+.abbrase span:nth-of-type(even){
+    color: #ff7c11;
+}
+.history .phrase {
+    margin-left: 15px;
+}
+.part-of-speech {
+    font-variant: small-caps;
+    white-space: nowrap;
+}
+.example{
+    color: #777;
+    font-size: 0.8rem;
+}
+
+/* .btn Taken from Twitter Bootstrap */
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid black;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 1rem;
+    line-height: 1.42857;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: #333fa5;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none; }
+.btn:focus {
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
+.btn:hover, .btn:focus {
+    color: white;
+    text-decoration: none;
+    box-shadow: none;
+    background-color: #ff7c11;
+}
+
+a {
+    color: #0725c6;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted;
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 768px), print {
+    body {
+        padding-left: 150px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-variant-ligatures: common-ligatures;
+        font-variant-ligatures: common-ligatures;
+        -moz-font-feature-settings: "kern=1";
+        -webkit-font-feature-settings: "kern";
+        -moz-font-feature-settings: "kern";
+        font-feature-settings: "kern";
+        font-kerning: normal;
+    }
+}
+
+@media print {
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+}
+
+body > a img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
