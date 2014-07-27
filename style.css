@@ -94,7 +94,7 @@ abbr[title] {
     white-space: nowrap;
 }
 
-@media screen and (min-width: 768px), print {
+@media screen and (min-width: 800px), print {
     body {
         padding-left: 150px;
         text-rendering: optimizeLegibility;
