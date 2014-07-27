@@ -6,15 +6,15 @@ var abbrasePassphraseGen = function () {
 
     function generate(length) {
         /* pick series of prefixes that will make up the passwords (Ryan Hitchman) */
-        var numbers = new Uint16Array(length);
-        crypto.getRandomValues(numbers);
+        var numbers = new Uint16Array(length)
+        getRandoms(numbers)
 
         //parts of speech: [adjectives] + noun + verb + [adjectives] + noun
         var noun = Math.floor((length - 3) / 2)
         var words = []
 
         for (var i = 0; i < length; i++) {
-            var pre = prefixes[numbers[i] % 1024];
+            var pre = prefixes[numbers[i] % 1024]
             var pos = ADJ
             if(i === noun || i === length - 1)
                 pos = NOUN
@@ -23,6 +23,15 @@ var abbrasePassphraseGen = function () {
             words[i] = pre + getWordForPrefix(unigrams[pre], pos)
         }
         return words
+    }
+
+    function getRandoms(arr) {
+        if (window.polyfilledCrypto) {
+            //polyfill should overwrite Math.random()
+            for (var i = 0; i < arr.length; i++) {
+                arr[i] = Math.floor(Math.random() * 1024)
+            }
+        } else crypto.getRandomValues(arr)
     }
 
     function getWordForPrefix(prefix, pos) {
@@ -81,8 +90,23 @@ function show_phrase() {
     container.find('.abbrase').html(abbrase)
 }
 
+$.ajaxSetup({
+    cache: true
+})
+
+function rngPolyfill() {
+    //Check copied from Modernizr
+    if ('crypto' in window && !!window.crypto && 'getRandomValues' in window.crypto)
+        return true
+    window.polyfilledCrypto  = true
+    return $.getScript('//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.6/seedrandom.min.js').then(function () {
+        Math.seedrandom()
+    })
+}
+
+
 var ready = $.Deferred()
-$.when($.ajax({dataType: "json", url: 'unigrams.json'}), ready)
+$.when($.ajax({dataType: "json", url: 'unigrams.json'}), rngPolyfill(), ready)
     .done(function (response) {
         abbrasePassphraseGen.load(response[0])
         for (var i = 0; i < 12; i++) {
@@ -98,15 +122,19 @@ $.when($.ajax({dataType: "json", url: 'unigrams.json'}), ready)
         })
 })
 
-$(document).ready(function () {ready.resolve()})
+$(document).ready(function () {
+    $('.btn').click(function () {return false})
+    ready.resolve()
+})
 
 function selectThis() {
+    //MDN
     var sel = window.getSelection()
     if (sel.isCollapsed) {
-        var range = document.createRange();
-        range.setStartBefore(this.firstChild);
-        range.setEndAfter(this.lastChild);
-        sel.removeAllRanges();
-        sel.addRange(range);
+        var range = document.createRange()
+        range.setStartBefore(this.firstChild)
+        range.setEndAfter(this.lastChild)
+        sel.removeAllRanges()
+        sel.addRange(range)
     }
 }
