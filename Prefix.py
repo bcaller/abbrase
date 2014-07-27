@@ -39,7 +39,7 @@ class Prefix:
                 del self.parts[i][word]
 
             word_counts = self.get_word_counts(i)
-            for (word, count) in word_counts[2:]:
+            for (word, count) in word_counts[1:]:
                 if count < word_counts[0][1] / 11:
                     del self.parts[i][word]
 
@@ -121,7 +121,7 @@ class Prefix:
             part = self.parts[i]
             suffixes = set(part.keys())
             for american in suffixes:
-                if 'z' in american:
+                if 'z' in american:  # We don't replace neighbor with neighbor. Just download correct ngram files.
                     english = american.replace('z', 's')
                     if english in suffixes:
                         combine(part, american, english)

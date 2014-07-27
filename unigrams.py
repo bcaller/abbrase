@@ -13,23 +13,26 @@ import re
 
 hasPartOfSpeech = re.compile('^([A-Za-z][a-z]+)_(ADJ|NOUN|VERB)')
 pos = ['ADJ', 'NOUN', 'VERB']
+print('Abbrase POS / unigram processor by {}'.format(__author__))
 prefixes = set()
 with open("./data/prefixes.txt") as prefListFile:
     for pref in prefListFile.readline().split(','):
         prefixes.add(pref)
 
+print('{} prefixes loaded'.format(len(prefixes)))
+
 for letter in {pref[0] for pref in prefixes}:
     currentLetterPrefixes = {p for p in prefixes if p[0] == letter}
     unigram = {p: Prefix() for p in currentLetterPrefixes}
     
-    print(currentLetterPrefixes)
+    print('working on letter {}: {}'.format(letter, currentLetterPrefixes))
     
     linesRead = 0
     for bline in gzip.GzipFile("./data/" + letter + '.gz'):
 
         linesRead += 1
         if linesRead % 3e6 == 0:
-            print(linesRead / 1e6, sep=" " if linesRead % 2e6 == 0 else "\n", flush=True)  # number of lines read (millions)
+            print(linesRead / 1e6, flush=True)  # number of lines read (millions)
 
         line = bline.decode('utf-8')
         prefix = line[:3]
@@ -45,7 +48,7 @@ for letter in {pref[0] for pref in prefixes}:
                         unigram[prefix].put(suffix, posIndex, count)
 
     for p in currentLetterPrefixes:
-        print('Ready to aggregate for letter {}'.format(p), flush=True)
+        print('Aggregating prefix {}'.format(p), flush=True)
         # print(unigram[p].parts)
         unigram[p].finish()
     
