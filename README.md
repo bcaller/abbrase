@@ -60,7 +60,6 @@ Run abbrase.py or import it:
     Password            Phrase
     ---------------     --------------------
 	emboraneateetoo		embryonic orange nears teenaged tool
-	rairevtowawatak		raised revenue towed aware taking
 	weslipwonmaggal		western lipstick won magical galaxy
 	adhmutnodwiltho		adhoc mutilation nodding willed thorn
 	cobpoifunpaleno		cobblestoned point funds palpable enormity
@@ -68,13 +67,10 @@ Run abbrase.py or import it:
 	bruacrlevunphac		brutish acronym levelled unpleasant hacienda
 	darhoswaitopqui		daring host waits topmost quiet
 	admparranhopeye		admirable partner rang hopeless eyelid
-	tolsinhatsovcop		tolerable singer hatches sovran copy
-	hacanyindwavnei		hac anything indulges wavelike neighborhood
 	dedbotempfutent		deductible bottom emphasises futuristic entrance
 	eagfauacqhelmap		eager fault acquires helpful map
 	actmerdeafounei		actual merger deals foul neighborhood
 	oneloopiecoaonl		onerous loom pierces coarse onlooker
-	dodabucivkniobv		doddering abuse civilise knitted obverse
 	incfivmakavautt		incomplete fiver make available utterance
 	movoftwonbaccri		moveable oft won backward critic
 	tinliaingsamite		tinted liabilities ingrained same item
@@ -82,7 +78,6 @@ Run abbrase.py or import it:
 	toutitsermanwat		toughest title services many water
 	edidomabitesack		edited dominance abides testable ackson
 	ariacqrushimsis		arithmetical acquaintance rustles hime sister
-	bonaimhilbinavo		boned aim hile binocular avocado
 	looliqmodexcsyn		looking liqueur modeled exciting synthesis
 	goueigniccashan		gouged eigenvalue nicks casual handle
 	grawiflovrandus		gradual wife loves randomness dusk
@@ -91,7 +86,5 @@ Run abbrase.py or import it:
 	dicpanenfcoioxi		dictionary pant enforces coiled oxide
 	canascsamfieacu		canonical asceticism sampled fiercest acumen
 	optnoipuspilacr		optimistic noise pushes pillared acreage
-	wandiradenavcov		wanted dirt adenosine navigational coverage
-	thoteldolvotsom		thousand telegram doles votive someone
 	boipupsinyelpan		boisterous pupil singing yellowish pant
 	eggsencelshaavo		eggshaped sensation celebrates sharp avocado
