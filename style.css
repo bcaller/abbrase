@@ -1,5 +1,5 @@
 html {
-    font-size: 20px;
+    font-size: 16px;
 }
 body {
     font-family: "PT Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -14,7 +14,7 @@ h1 {
     text-shadow: -1px 1px 3px #ff7c11;
 }
 .current {
-    font-size: 1.5rem;
+    font-size: 1.5em;
 }
 .current span, .phrase span, b{
     font-weight: 600;
@@ -34,8 +34,8 @@ h1 {
 }
 .current p:after{
     padding-left: 10px;
-    vertical-align: 0.15rem;
-    font-size: 1rem;
+    vertical-align: 0.15em;
+    font-size: 1em;
     color: #999;
 }
 .abbrase span:nth-of-type(even){
@@ -50,7 +50,7 @@ h1 {
 }
 .example{
     color: #777;
-    font-size: 0.8rem;
+    font-size: 0.8em;
 }
 
 /* .btn Modified from Twitter Bootstrap */
@@ -63,7 +63,7 @@ h1 {
     border: 1px solid black;
     white-space: nowrap;
     padding: 6px 12px;
-    font-size: 1rem;
+    font-size: 1em;
     line-height: 1.42857;
     border-radius: 4px;
     text-decoration: none;
@@ -94,9 +94,9 @@ abbr[title] {
     white-space: nowrap;
 }
 
-@media screen and (min-width: 800px), print {
+@media screen and (min-width: 768px), print {
     body {
-        padding-left: 150px;
+        font-size: 1.2rem;
         text-rendering: optimizeLegibility;
         -webkit-font-variant-ligatures: common-ligatures;
         font-variant-ligatures: common-ligatures;
@@ -105,6 +105,12 @@ abbr[title] {
         -moz-font-feature-settings: "kern";
         font-feature-settings: "kern";
         font-kerning: normal;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        padding-left: 150px;
     }
 }
 
